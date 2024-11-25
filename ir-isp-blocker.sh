@@ -9,7 +9,7 @@ fi
 
 function isp_blocker {
     clear
-    #!/bin/bash
+
 
 echo -e "\033[1;34m--------------------------------------\033[0m"
 echo -e "\033[1;32m           IR ISP MANAGEMENT           \033[0m"
@@ -118,7 +118,7 @@ function blocking_menu {
         
     clear
 
-#!/bin/bash
+
 
 echo -e "\033[1;34m-----------------------------------\033[0m"
 echo -e "\033[1;32m              $isp                 \033[0m"
@@ -140,7 +140,7 @@ read -p $'\033[1;33mEnter your choice: \033[0m' choice
 function blocker {
     clear
         clear
-       #!/bin/bash
+
 
 echo -e "\033[1;34m----------------------------------------\033[0m"
 echo -e "\033[1;32m       Port Blocking Options for $isp   \033[0m"
