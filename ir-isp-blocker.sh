@@ -314,7 +314,7 @@ function unblocker {
     clear
     echo "All ISPs UnBlocked successfully!"
     read -p "Press enter to return to Menu" dummy
-    blocking_menu
+    main_menu
 }
 
 main_menu
