@@ -12,7 +12,7 @@ function isp_blocker {
     #!/bin/bash
 
 echo -e "\033[1;34m--------------------------------------\033[0m"
-echo -e "\033[1;32m           IR-ISP-Blocker            \033[0m"
+echo -e "\033[1;32m           IR ISP MANAGEMENT           \033[0m"
 echo -e "\033[1;34m--------------------------------------\033[0m"
 echo -e "\033[1;36m   https://github.com/Kiya6955/IR-ISP-Blocker   \033[0m"
 echo -e "\033[1;34m--------------------------------------\033[0m"
