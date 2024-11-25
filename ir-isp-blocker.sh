@@ -8,54 +8,51 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 function isp_blocker {
-    clear
+    while true; do
+        clear
+        echo -e "\033[1;34m--------------------------------------\033[0m"
+        echo -e "\033[1;32m           IR ISP MANAGEMENT           \033[0m"
+        echo -e "\033[1;36m fork of github.com/Kiya6955/IR-ISP-Blocker   \033[0m"
+        echo -e "\033[1;34m--------------------------------------\033[0m"
+        echo -e "\033[1;32m1. \033[0mHamrah Aval"
+        echo -e "\033[1;32m2. \033[0mIrancell"
+        echo -e "\033[1;32m3. \033[0mMokhaberat"
+        echo -e "\033[1;32m4. \033[0mRightel"
+        echo -e "\033[1;32m5. \033[0mShatel"
+        echo -e "\033[1;32m6. \033[0mAsiaTech"
+        echo -e "\033[1;32m7. \033[0mPishgaman"
+        echo -e "\033[1;32m8. \033[0mMobinNet"
+        echo -e "\033[1;32m9. \033[0mParsOnline"
+        echo -e "\033[1;32m10. \033[0mReset and delete all rules"
+        echo -e "\033[1;32m11. \033[0mAll IRAN ISP"
+        echo -e "\033[1;31m0. \033[0mReturn"
+        echo -e "\033[1;34m--------------------------------------\033[0m"
+        read -p "Enter your choice: " isp
 
-
-echo -e "\033[1;34m--------------------------------------\033[0m"
-echo -e "\033[1;32m           IR ISP MANAGEMENT           \033[0m"
-echo -e "\033[1;34m--------------------------------------\033[0m"
-echo -e "\033[1;36m   https://github.com/Kiya6955/IR-ISP-Blocker   \033[0m"
-echo -e "\033[1;34m--------------------------------------\033[0m"
-echo -e "\033[1;33mWhich ISP do you want to perform an action on?\033[0m"
-echo -e "\033[1;34m--------------------------------------\033[0m"
-echo -e "\033[1;32m1. \033[0mHamrah Aval"
-echo -e "\033[1;32m2. \033[0mIrancell"
-echo -e "\033[1;32m3. \033[0mMokhaberat"
-echo -e "\033[1;32m4. \033[0mRightel"
-echo -e "\033[1;32m5. \033[0mShatel"
-echo -e "\033[1;32m6. \033[0mAsiaTech"
-echo -e "\033[1;32m7. \033[0mPishgaman"
-echo -e "\033[1;32m8. \033[0mMobinNet"
-echo -e "\033[1;32m9. \033[0mParsOnline"
-echo -e "\033[1;32m10. \033[0mReset and delete all rules"
-echo -e "\033[1;32m11. \033[0mAll IRAN ISP"
-echo -e "\033[1;31m0. \033[0mReturn"
-echo -e "\033[1;34m--------------------------------------\033[0m"
-read -p "Enter your choice: " isp
-
-
-    case $isp in
-    1) isp="MCI" blocking_menu ;;
-    2) isp="MTN" blocking_menu ;;
-    3) isp="TCI" blocking_menu ;;
-    4) isp="Rightel" blocking_menu ;;
-    5) isp="Shatel" blocking_menu ;;
-    6) isp="AsiaTech" blocking_menu ;;
-    7) isp="Pishgaman" blocking_menu ;;
-    8) isp="MobinNet" blocking_menu ;;
-    9) isp="ParsOnline" blocking_menu ;;
-    10) unblocker ;;
-    11) isp="All-IRAN-IPs" blocking_menu ;;
-    0) echo "Exiting..."; exit 0 ;;
-    *) echo "Invalid option"; isp_blocker ;;
-    esac
+        case $isp in
+            1) isp="MCI" blocking_menu ;;
+            2) isp="MTN" blocking_menu ;;
+            3) isp="TCI" blocking_menu ;;
+            4) isp="Rightel" blocking_menu ;;
+            5) isp="Shatel" blocking_menu ;;
+            6) isp="AsiaTech" blocking_menu ;;
+            7) isp="Pishgaman" blocking_menu ;;
+            8) isp="MobinNet" blocking_menu ;;
+            9) isp="ParsOnline" blocking_menu ;;
+            10) unblocker ;;
+            11) isp="All-IRAN-IPs" blocking_menu ;;
+            0) echo "Returning to the main menu..."; break ;;
+            *) echo -e "\033[1;31mInvalid option. Please try again.\033[0m"; sleep 2 ;;
+        esac
+    done
 }
+
 
 function blocking_menu {
     echo "ٌWait a minute, installing prerequisites..."
     sleep 2s
 
-    clear
+    
 
     if ! dpkg -l | grep -q iptables; then
         apt update
@@ -76,7 +73,7 @@ function blocking_menu {
     fi
 
     
-    clear
+    
 
     case $isp in
         "MCI")
