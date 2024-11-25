@@ -139,7 +139,6 @@ read -p $'\033[1;33mEnter your choice: \033[0m' choice
 
 function blocker {
     clear
-        clear
 
 
 echo -e "\033[1;34m----------------------------------------\033[0m"
@@ -161,7 +160,7 @@ read -p $'\033[1;33m> \033[0m' whitelist_ips
         
         clear
         if [[ $choice == 1 ]]; then
-           echo -e "\033[1;33mEnter the ports you want to block for \033[1;32m$isp\033[1;33m:\033[0m"
+echo -e "\033[1;33mEnter the ports you want to block for \033[1;32m$isp\033[1;33m:\033[0m"
 echo -e "\033[1;33m(enter a single port like \033[1;36m443\033[1;33m or separated by commas like \033[1;36m443,8443\033[1;33m)\033[0m"
 read -p $'\033[1;33m> \033[0m' ports
 
