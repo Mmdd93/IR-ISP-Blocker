@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $EUID -ne 0 ]]; then
-    clear
+    
     echo "You should run this script with root!"
     echo "Use sudo -i to change user to root"
     exit 1
@@ -114,13 +114,11 @@ function blocking_menu {
         blocking_menu
     fi      
         
-    clear
+    
 
 
 
-echo -e "\033[1;34m-----------------------------------\033[0m"
-echo -e "\033[1;32m              $isp                 \033[0m"
-echo -e "\033[1;34m-----------------------------------\033[0m"
+echo -e "\033[1;34m---------------$isp--------------------\033[0m"
 echo -e "\033[1;33m1. \033[0m Blocking $isp"
 echo -e "\033[1;33m2. \033[0m Allowing $isp"
 echo -e "\033[1;33m3. \033[0m Return"
@@ -136,12 +134,10 @@ read -p 'Enter your choice: ' choice
 }
 
 function blocker {
-    clear
+    
 
 
-echo -e "\033[1;34m----------------------------------------\033[0m"
-echo -e "\033[1;32m       Port Blocking Options for $isp   \033[0m"
-echo -e "\033[1;34m----------------------------------------\033[0m"
+echo -e "\033[1;34m--Port Blocking Options for $isp--\033[0m"
 echo -e "\033[1;33m1. \033[0m Block specific ports for $isp"
 echo -e "\033[1;33m2. \033[0m Block all ports for $isp"
 echo -e "\033[1;33m3. \033[0m Return"
@@ -149,7 +145,7 @@ echo -e "\033[1;34m----------------------------------------\033[0m"
 read -p 'Enter your choice: ' choice
 
 
-        clear
+        
         echo -e "\033[1;33mEnter whitelist IPs for \033[1;32m$isp\033[1;33m:\033[0m"
 echo -e "\033[1;33m(separate with commas like \033[1;36m1.1.1.1,8.8.8.8\033[1;33m or leave empty for none)\033[0m"
 read -p '> ' whitelist_ips
@@ -168,13 +164,11 @@ read -p '> ' ports
         case $choice in
             1)
                 clear
-                echo -e "\033[1;34m----------------------------------------\033[0m"
+                
 echo -e "\033[1;32mChoose Protocol to block for \033[1;36m$isp\033[0m"
-echo -e "\033[1;34m----------------------------------------\033[0m"
 echo -e "\033[1;33m1. \033[0mTCP & UDP"
 echo -e "\033[1;33m2. \033[0mTCP"
 echo -e "\033[1;33m3. \033[0mUDP"
-echo -e "\033[1;34m----------------------------------------\033[0m"
 read -p 'Enter your choice: ' protocol
 
 
@@ -185,8 +179,6 @@ read -p 'Enter your choice: ' protocol
                 *) echo "Invalid option"; blocker ;;
                 esac
                 
-                clear
-                               clear
                 read -p "Do you want to delete the previous rules? [Y/N] : " confirm
                 if [[ $confirm == [Yy]* ]]; then
                     iptables -F isp-blocker
@@ -194,7 +186,7 @@ read -p 'Enter your choice: ' protocol
                     sleep 2s
                 fi
 
-                clear
+                
                 echo "Blocking [$ports] for $isp started please wait..."
 
                 for ip in "${whitelistIPArray[@]}"; do
@@ -215,7 +207,7 @@ read -p 'Enter your choice: ' protocol
 
                 iptables-save > /etc/iptables/rules.v4
 
-                clear
+                
                 if [ "$protocol" == "all" ]; then
                     echo "TCP & UDP [$ports] successfully blocked for $isp."
                 else
@@ -223,11 +215,11 @@ read -p 'Enter your choice: ' protocol
                 fi
                 ;;
             2)
-                clear
+                
                 read -p "Enter ports you want whitelist for $isp (separate with comma like 443,8443 or leave empty for none): " whitelist_ports
                 IFS=',' read -r -a whitelistPortArray <<< "$whitelist_ports"
 
-                clear
+                
                 read -p "Enter the SSH port you want open for $isp (default is 22): " SSH_PORT
                 SSH_PORT=${SSH_PORT:-22}
 
@@ -239,7 +231,7 @@ read -p 'Enter your choice: ' protocol
                     sleep 2s
                 fi
 
-                clear
+                
                 echo "Blocking all ports for $isp started please wait..."
 
                 for ip in "${whitelistIPArray[@]}"; do
@@ -272,7 +264,7 @@ read -p 'Enter your choice: ' protocol
 }
 
 function unblocker {
-    clear
+    
     iptables -F isp-blocker
     iptables-save > /etc/iptables/rules.v4
     clear
