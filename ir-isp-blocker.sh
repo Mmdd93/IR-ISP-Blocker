@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-function main_menu {
+function isp_blocker {
     clear
     echo "----------- IR-ISP-Blocker -----------"
     echo "https://github.com/Kiya6955/IR-ISP-Blocker"
@@ -40,7 +40,7 @@ function main_menu {
     10) unblocker ;;
     11) isp="All-IRAN-IPs" blocking_menu ;;
     0) echo "Exiting..."; exit 0 ;;
-    *) echo "Invalid option"; main_menu ;;
+    *) echo "Invalid option"; isp_blocker ;;
     esac
 }
 
@@ -120,7 +120,7 @@ function blocking_menu {
     case $choice in
         1) blocker ;;
         2) only_mode ;;
-        3) main_menu ;;
+        3) isp_blocker ;;
         *) echo "Invalid option press enter"; blocking_menu ;;
     esac
 }
@@ -314,7 +314,7 @@ function unblocker {
     clear
     echo "All ISPs UnBlocked successfully!"
     read -p "Press enter to return to Menu" dummy
-    main_menu
+    isp_blocker
 }
 
-main_menu
+isp_blocker
