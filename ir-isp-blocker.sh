@@ -226,13 +226,13 @@ fi
 ;;
 
 # Option 2
-echo -e "\033[1;33mEnter the ports you want to to whitelist for \033[1;32m$isp\033[1;33m:\033[0m"
+echo -e "\033[1;33mEnter the ports you want to whitelist for \033[1;32m$isp\033[1;33m:\033[0m"
 echo -e "\033[1;33m(enter a single port or separated by commas like \033[1;36m443,8443\033[1;33m)\033[0m"
-echo -e "\033[1;33mleave empty for none\033[0m"
+echo -e "\033[1;33mLeave empty for none\033[0m"
 read -p '> ' whitelist_ports
 
-
 IFS=',' read -r -a whitelistPortArray <<< "$whitelist_ports"
+
 
 
 read -p "Enter the SSH port you want open for $isp (default is 22): " SSH_PORT
