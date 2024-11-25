@@ -1,14 +1,14 @@
 #!/bin/bash
 
 if [[ $EUID -ne 0 ]]; then
-    
+    clear
     echo "You should run this script with root!"
     echo "Use sudo -i to change user to root"
     exit 1
 fi
 
 function isp_blocker {
-    
+    clear
 
 
 echo -e "\033[1;34m--------------------------------------\033[0m"
@@ -31,7 +31,8 @@ echo -e "\033[1;32m10. \033[0mReset and delete all rules"
 echo -e "\033[1;32m11. \033[0mAll IRAN ISP"
 echo -e "\033[1;31m0. \033[0mReturn"
 echo -e "\033[1;34m--------------------------------------\033[0m"
-read -p $'\033[1;33mEnter your choice: \033[0m' isp
+read -p "Enter your choice: " isp
+
 
     case $isp in
     1) isp="MCI" blocking_menu ;;
@@ -54,7 +55,7 @@ function blocking_menu {
     echo "ٌWait a minute, installing prerequisites..."
     sleep 2s
 
-    
+    clear
 
     if ! dpkg -l | grep -q iptables; then
         apt update
@@ -75,7 +76,7 @@ function blocking_menu {
     fi
 
     
-    
+    clear
 
     case $isp in
         "MCI")
@@ -116,7 +117,7 @@ function blocking_menu {
         blocking_menu
     fi      
         
-    
+    clear
 
 
 
@@ -127,7 +128,7 @@ echo -e "\033[1;33m1. \033[0m Blocking $isp"
 echo -e "\033[1;33m2. \033[0m Allowing $isp"
 echo -e "\033[1;33m3. \033[0m Return"
 echo -e "\033[1;34m-----------------------------------\033[0m"
-read -p $'\033[1;33mEnter your choice: \033[0m' choice
+read -p 'Enter your choice: ' choice
 
     case $choice in
         1) blocker ;;
@@ -138,7 +139,7 @@ read -p $'\033[1;33mEnter your choice: \033[0m' choice
 }
 
 function blocker {
-    
+    clear
 
 
 echo -e "\033[1;34m----------------------------------------\033[0m"
@@ -148,28 +149,28 @@ echo -e "\033[1;33m1. \033[0m Block specific ports for $isp"
 echo -e "\033[1;33m2. \033[0m Block all ports for $isp"
 echo -e "\033[1;33m3. \033[0m Return"
 echo -e "\033[1;34m----------------------------------------\033[0m"
-read -p $'\033[1;33mEnter your choice: \033[0m' choice
+read -p 'Enter your choice: ' choice
 
 
-        
+        clear
         echo -e "\033[1;33mEnter whitelist IPs for \033[1;32m$isp\033[1;33m:\033[0m"
 echo -e "\033[1;33m(separate with commas like \033[1;36m1.1.1.1,8.8.8.8\033[1;33m or leave empty for none)\033[0m"
-read -p $'\033[1;33m> \033[0m' whitelist_ips
+read -p '> ' whitelist_ips
 
         IFS=',' read -r -a whitelistIPArray <<< "$whitelist_ips"
         
-        
+        clear
         if [[ $choice == 1 ]]; then
 echo -e "\033[1;33mEnter the ports you want to block for \033[1;32m$isp\033[1;33m:\033[0m"
 echo -e "\033[1;33m(enter a single port like \033[1;36m443\033[1;33m or separated by commas like \033[1;36m443,8443\033[1;33m)\033[0m"
-read -p $'\033[1;33m> \033[0m' ports
+read -p '> ' ports
 
             IFS=',' read -r -a portArray <<< "$ports"
         fi
 
         case $choice in
             1)
-                
+                clear
                 echo -e "\033[1;34m----------------------------------------\033[0m"
 echo -e "\033[1;32mChoose Protocol to block for \033[1;36m$isp\033[0m"
 echo -e "\033[1;34m----------------------------------------\033[0m"
@@ -177,7 +178,7 @@ echo -e "\033[1;33m1. \033[0mTCP & UDP"
 echo -e "\033[1;33m2. \033[0mTCP"
 echo -e "\033[1;33m3. \033[0mUDP"
 echo -e "\033[1;34m----------------------------------------\033[0m"
-read -p $'\033[1;33mEnter your choice: \033[0m' protocol
+read -p 'Enter your choice: ' protocol
 
 
                 case $protocol in
@@ -187,15 +188,15 @@ read -p $'\033[1;33mEnter your choice: \033[0m' protocol
                 *) echo "Invalid option"; blocker ;;
                 esac
                 
-                
-               read -p $'\033[1;33mDo you want to delete the previous rules? \033[1;32m[Y/N] \033[0m: ' confirm
+                clear
+               read -p 'Do you want to delete the previous rules?[Y/N]:' confirm
                 if [[ $confirm == [Yy]* ]]; then
                     iptables -F isp-blocker
                     echo -e "\033[1;32mPrevious rules deleted successfully\033[0m"
                     sleep 1s
                 fi
 
-                
+                clear
                 echo -e "\033[1;33mBlocking [$ports] for \033[1;32m$isp\033[1;33m started, please wait...\033[0m"
 
 for ip in "${whitelistIPArray[@]}"; do
@@ -216,7 +217,7 @@ done
 
 iptables-save > /etc/iptables/rules.v4
 
-
+clear
 if [ "$protocol" == "all" ]; then
     echo -e "\033[1;32mTCP & UDP [$ports] successfully blocked for \033[1;32m$isp.\033[0m"
 else
@@ -225,15 +226,15 @@ fi
 ;;
 
 # Option 2
-
+clear
 read -p "Enter ports you want whitelist for \033[1;32m$isp\033[0m (separate with comma like 443,8443 or leave empty for none): " whitelist_ports
 IFS=',' read -r -a whitelistPortArray <<< "$whitelist_ports"
 
-
-read -p "Enter the SSH port you want open for \033[1;32m$isp\033[0m (default is 22): " SSH_PORT
+clear
+read -p "Enter the SSH port you want open for $isp (default is 22): " SSH_PORT
 SSH_PORT=${SSH_PORT:-22}
 
-
+clear
 read -p "Do you want to delete the previous rules? [Y/N] : " confirm
 if [[ $confirm == [Yy]* ]]; then
     iptables -F isp-blocker
@@ -241,7 +242,7 @@ if [[ $confirm == [Yy]* ]]; then
     sleep 2s
 fi
 
-
+clear
 echo -e "\033[1;33mBlocking all ports for \033[1;32m$isp\033[1;33m started, please wait...\033[0m"
 
 for ip in "${whitelistIPArray[@]}"; do
@@ -263,7 +264,7 @@ done
 
 iptables-save > /etc/iptables/rules.v4
 
-
+clear
 echo -e "\033[1;32m$isp successfully blocked for all ports.\033[0m"
 echo -e "\033[1;32mPort $SSH_PORT has been opened for SSH.\033[0m"
 ;;
@@ -279,12 +280,12 @@ blocking_menu
 }
 
 function only_mode {
-    
+    clear
     read -p "Enter your SSH port (default is 22): " SSH_PORT
     SSH_PORT=${SSH_PORT:-22}
     
-    
-    read -p "Enter ports to block for all ISPs except \033[1;32m$isp\033[0m (separate with comma like 443,8443): " blocklist_ports
+    clear
+    read -p "Enter ports to block for all ISPs except $isp (separate with comma e.g 443,8443): " blocklist_ports
     IFS=',' read -r -a blocklistPortArray <<< "$blocklist_ports"
     
     if [[ -z "$blocklist_ports" ]]; then
@@ -294,11 +295,11 @@ function only_mode {
 
     blocklistPortArray=("${blocklistPortArray[@]}")
 
-    
-    read -p "Enter IP addresses you want whitelist for (${blocklistPortArray[*]// /, }) (separate with comma like 1.1.1.1,8.8.8.8 or leave empty for none): " whitelist_ips
+    clear
+    read -p "Enter whitelist IP addresses for (${blocklistPortArray[*]// /, }) (separate with comma like 1.1.1.1,8.8.8.8 or leave empty for none): " whitelist_ips
     IFS=',' read -r -a whitelistIPArray <<< "$whitelist_ips"
 
-    
+    clear
     read -p "Do you want to delete the previous rules? [Y/N]: " confirm
     if [[ $confirm == [Yy]* ]]; then
         iptables -F isp-blocker
@@ -306,7 +307,7 @@ function only_mode {
         sleep 2s
     fi
 
-    
+    clear
     echo -e "\033[1;33mBlocking all ISPs for ports (${blocklistPortArray[*]// /, }) except \033[1;32m$isp\033[1;33m started, please wait...\033[0m"
 
     for IP in $IP_LIST; do
@@ -335,15 +336,15 @@ function only_mode {
     
     iptables-save > /etc/iptables/rules.v4
 
-    
+    clear
     echo -e "\033[1;32mPorts (${blocklistPortArray[*]// /, }) blocked for all ISPs except \033[1;32m$isp\033[0m successfully"
 }
 
 function unblocker {
-    
+    clear
     iptables -F isp-blocker
     iptables-save > /etc/iptables/rules.v4
-    
+    clear
     echo -e "\033[1;32mAll ISPs Unblocked successfully!\033[0m"
     read -p "Press enter to return to Menu" dummy
     isp_blocker
