@@ -113,7 +113,7 @@ function blocking_menu {
         read -p "Press enter to return to Menu" dummy
         blocking_menu
     fi      
-clear
+
 echo -e "\033[1;34m---------------$isp--------------------\033[0m"
 echo -e "\033[1;33m1. \033[0m Blocking $isp"
 echo -e "\033[1;33m2. \033[0m Allowing $isp"
@@ -157,7 +157,7 @@ read -p '> ' ports
 
         case $choice in
             1)
-                clear
+                
                 
 echo -e "\033[1;32mChoose Protocol to block for \033[1;36m$isp\033[0m"
 echo -e "\033[1;33m1. \033[0mTCP & UDP"
@@ -209,7 +209,7 @@ read -p 'Enter your choice: ' protocol
                 fi
                 ;;
             2)
-                clear
+                
                 read -p "Enter ports you want whitelist for $isp (separate with comma like 443,8443 or leave empty for none): " whitelist_ports
                 IFS=',' read -r -a whitelistPortArray <<< "$whitelist_ports"
 
