@@ -24,7 +24,8 @@ function main_menu {
     echo "8-MobinNet"
     echo "9-ParsOnline"
     echo "10-Unblock All"
-    echo "11-Exit"
+    echo "11-All-IRAN-IPs"
+    echo "0-Exit"
     read -p "Enter your choice: " isp
     case $isp in
     1) isp="MCI" blocking_menu ;;
@@ -37,7 +38,8 @@ function main_menu {
     8) isp="MobinNet" blocking_menu ;;
     9) isp="ParsOnline" blocking_menu ;;
     10) unblocker ;;
-    11) echo "Exiting..."; exit 0 ;;
+    11) isp="All-IRAN-IPs" blocking_menu ;;
+    0) echo "Exiting..."; exit 0 ;;
     *) echo "Invalid option"; main_menu ;;
     esac
 }
@@ -96,6 +98,9 @@ function blocking_menu {
             ;;
         "ParsOnline")
             IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Kiya6955/IR-ISP-Blocker/main/parsan-ips.ipv4')
+            ;;
+        "All-IRAN-IPs")
+            IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Mmdd93/IR-ISP-Blocker/main/all-iran-ips.ipv4')
             ;;
     esac
 
