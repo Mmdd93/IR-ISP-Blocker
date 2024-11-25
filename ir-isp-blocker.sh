@@ -24,7 +24,7 @@ function isp_blocker {
         echo -e "\033[1;32m8. \033[0mMobinNet"
         echo -e "\033[1;32m9. \033[0mParsOnline"
         echo -e "\033[1;32m10. \033[0mReset and delete all rules"
-        echo -e "\033[1;32m11. \033[0mAll IRAN ISP"
+        echo -e "\033[1;32m11. \033[0mAll ISP"
         echo -e "\033[1;31m0. \033[0mReturn"
         echo -e "\033[1;34m--------------------------------------\033[0m"
         read -p "Enter your choice: " isp
