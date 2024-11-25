@@ -269,37 +269,84 @@ read -p '> ' whitelist_ports
         isp_blocker
 }
 
-function only_mode {
+only_mode() {
 
-
-    echo -e "\n\033[1;33mEnter allowing SSH port for $isp (default is 22):\033[0m"
-    read -p '> ' SSH_PORT
+    echo -e "\n\033[1;35mEnter allowing SSH port for $isp (default is 22):\033[0m"
+    read -p ' > ' SSH_PORT
                 
-                SSH_PORT=${SSH_PORT:-22}
+    SSH_PORT=${SSH_PORT:-22}
 
-    
-    
-    
-echo -e "\n\033[1;33mEnter ports to block for all ISPs except \033[1;32m$isp\033[1;33m:\033[0m"
-echo -e "\033[1;33m(separate with commas like \033[1;36m443,80\033[1;33m)\033[0m"
-read -p '> ' blocklist_ports
-    
-    IFS=',' read -r -a blocklistPortArray <<< "$blocklist_ports"
-    
-    if [[ -z "$blocklist_ports" ]]; then
-        blocking_menu
-        return
-    fi
+    echo -e "\n\033[1;34mChoose an option for blocking ports:\033[0m"
+    echo -e "\033[1;32m1.\033[0m Enter ports to block"
+    echo -e "\033[1;32m2.\033[0m Select current in-use ports to block"
+    read -p '> ' option
 
-    blocklistPortArray=("${blocklistPortArray[@]}")
+    case $option in
+        1)
+            # Option 1: Manually enter ports
+            echo -e "\n\033[1;34mEnter ports to block for all ISPs except \033[1;32m$isp\033[1;33m:\033[0m"
+            echo -e "\033[1;34m(separate with commas like \033[1;36m443,80\033[1;33m)\033[0m"
+            read -p ' > ' blocklist_ports
 
-    
-echo -e "\n\033[1;33mEnter IP addresses you want whitelist for (${blocklistPortArray[*]// /, }):\033[0m"
-echo -e "\033[1;33m(separate with commas like \033[1;36m1.1.1.1,8.8.8.8\033[1;33m or leave empty for none)\033[0m"
-read -p '> ' whitelist_ips
+            IFS=',' read -r -a blocklistPortArray <<< "$blocklist_ports"
+            
+            if [[ -z "$blocklist_ports" ]]; then
+                blocking_menu
+                return
+            fi
+
+            blocklistPortArray=("${blocklistPortArray[@]}")
+            ;;
+        2)
+            # Option 2: Find current in-use ports and block them
+            echo -e "\n\033[1;33mFinding current in-use ports...\033[0m"
+            
+            # Fetch in-use ports (example using lsof command)
+            in_use_ports=$(sudo lsof -i -P -n | grep LISTEN | awk '{print $9}' | cut -d: -f2 | sort -u)
+            
+            echo -e "\n\033[1;33mCurrent in-use ports:\033[0m"
+            PS3="Select ports to block (comma-separated numbers, e.g., 1,3): "
+            
+            # Display ports with numbers
+            ports_list=()
+            counter=1
+            for port in $in_use_ports; do
+                ports_list+=("$port")
+                echo "$counter) $port"
+                ((counter++))
+            done
+            echo -e "\033[1;34mEnter the ports numbers to block (comma-separated, e.g., 1,3):\033[0m"
+
+            read -p ' > ' selected_ports
+
+            # Validate the input and add the selected ports to the blocklistPortArray
+            IFS=',' read -r -a selected_ports_array <<< "$selected_ports"
+            for selected in "${selected_ports_array[@]}"; do
+                if [[ "$selected" -ge 1 && "$selected" -le ${#ports_list[@]} ]]; then
+                    port_to_block="${ports_list[$selected-1]}"
+                    echo -e "\033[1;32mYou selected port $port_to_block\033[0m"
+                    blocklistPortArray+=("$port_to_block")
+                else
+                    echo -e "\033[1;31mInvalid selection: $selected. Please choose a valid port.\033[0m"
+                fi
+            done
+
+            if [[ ${#blocklistPortArray[@]} -eq 0 ]]; then
+                blocking_menu
+                return
+            fi
+            ;;
+        *)
+            echo -e "\033[1;31mInvalid option, please choose 1 or 2.\033[0m"
+            return
+            ;;
+    esac
+
+    echo -e "\n\033[1;33mEnter IP addresses you want whitelist for (${blocklistPortArray[*]// /, }):\033[0m"
+    echo -e "\033[1;33m(separate with commas like \033[1;36m1.1.1.1,8.8.8.8\033[1;33m or leave empty for none)\033[0m"
+    read -p '> ' whitelist_ips
     IFS=',' read -r -a whitelistIPArray <<< "$whitelist_ips"
 
-    
     echo -e "\n\033[1;33mDo you want to delete the previous rules? [Y/N]:\033[0m"
     read -p '> ' confirm
     if [[ $confirm == [Yy]* ]]; then
@@ -337,11 +384,10 @@ read -p '> ' whitelist_ips
     
     iptables-save > /etc/iptables/rules.v4
 
-    echo -e "\n\033[1;33mPorts (${blocklistPortArray[*]// /, }) blocked for all isps except $isp successfully\033[0m"
+    echo -e "\n\033[1;33mPorts (${blocklistPortArray[*]// /, }) blocked for all ISPs except $isp successfully\033[0m"
     
     read -p 'Enter to continue... '
 }
-
 
 
 function unblocker {
