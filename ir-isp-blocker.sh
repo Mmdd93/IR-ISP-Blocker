@@ -9,24 +9,30 @@ fi
 
 function isp_blocker {
     clear
-    echo "----------- IR-ISP-Blocker -----------"
-    echo "https://github.com/Kiya6955/IR-ISP-Blocker"
-    echo "--------------------------------------"
-    echo "Which ISP do you want to perform an action on?"
-    echo "--------------------------------------"
-    echo "1-Hamrah Aval"
-    echo "2-Irancell"
-    echo "3-Mokhaberat"
-    echo "4-Rightel"
-    echo "5-Shatel"
-    echo "6-AsiaTech"
-    echo "7-Pishgaman"
-    echo "8-MobinNet"
-    echo "9-ParsOnline"
-    echo "10-Unblock All"
-    echo "11-All-IRAN-IPs"
-    echo "0-Exit"
-    read -p "Enter your choice: " isp
+    #!/bin/bash
+
+echo -e "\033[1;34m--------------------------------------\033[0m"
+echo -e "\033[1;32m           IR-ISP-Blocker            \033[0m"
+echo -e "\033[1;34m--------------------------------------\033[0m"
+echo -e "\033[1;36m   https://github.com/Kiya6955/IR-ISP-Blocker   \033[0m"
+echo -e "\033[1;34m--------------------------------------\033[0m"
+echo -e "\033[1;33mWhich ISP do you want to perform an action on?\033[0m"
+echo -e "\033[1;34m--------------------------------------\033[0m"
+echo -e "\033[1;32m1. \033[0mHamrah Aval"
+echo -e "\033[1;32m2. \033[0mIrancell"
+echo -e "\033[1;32m3. \033[0mMokhaberat"
+echo -e "\033[1;32m4. \033[0mRightel"
+echo -e "\033[1;32m5. \033[0mShatel"
+echo -e "\033[1;32m6. \033[0mAsiaTech"
+echo -e "\033[1;32m7. \033[0mPishgaman"
+echo -e "\033[1;32m8. \033[0mMobinNet"
+echo -e "\033[1;32m9. \033[0mParsOnline"
+echo -e "\033[1;32m10. \033[0mUnblock All"
+echo -e "\033[1;32m11. \033[0mAll IRAN IPs"
+echo -e "\033[1;31m0. \033[0mExit"
+echo -e "\033[1;34m--------------------------------------\033[0m"
+read -p $'\033[1;33mEnter your choice: \033[0m' isp
+
     case $isp in
     1) isp="MCI" blocking_menu ;;
     2) isp="MTN" blocking_menu ;;
