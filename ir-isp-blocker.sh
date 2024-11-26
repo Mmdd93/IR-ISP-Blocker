@@ -40,7 +40,7 @@ function isp_blocker {
             9) isp="ParsOnline" blocking_menu ;;
             10) unblocker ;;
             11) isp="All-IRAN-IPs" blocking_menu ;;
-            0) echo "Returning to the main menu..."; break ;;
+            0) exit ;;
             *) echo -e "\033[1;31mInvalid option. Please try again.\033[0m"; sleep 2 ;;
         esac
     done
