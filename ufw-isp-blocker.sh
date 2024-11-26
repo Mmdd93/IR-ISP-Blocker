@@ -217,11 +217,11 @@ only_mode() {
 
 # Count the total number of IPs
     
-    echo -e "\n\033[1;35mEnter the SSH port to allow for \033[1;32m$isp\033[1;35m (default is 22):\033[0m"
+    echo -e "\n\033[1;35mEnter the SSH port to allow for all ISPs (default is 22):\033[0m"
     read -p ' > ' SSH_PORT
     SSH_PORT=${SSH_PORT:-22}
     
-    echo -e "\n\033[1;34m allow SSH port\033[0m"
+    echo -e "\n\033[1;34m Allowing SSH port...\033[0m"
     ufw allow $SSH_PORT
 
     echo -e "\n\033[1;34mEnter white list ports for all ISPs:\033[0m"
@@ -234,7 +234,7 @@ only_mode() {
     read -p '> ' whitelist_ips
     IFS=',' read -r -a whitelistIPArray <<< "$whitelist_ips"
 
-    echo -e "\033[1;35mAllowing traffic for all ISPs on specified ports...\033[0m"
+    echo -e "\033[1;35mAllowing traffic for whitelist ports for all ISPs...\033[0m"
     for port in "${allowlistPortArray[@]}"; do
         ufw allow $port
     done
