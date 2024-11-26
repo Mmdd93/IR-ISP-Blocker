@@ -18,7 +18,6 @@ function isp_blocker {
         clear
         echo -e "\033[1;34m--------------------------------------\033[0m"
         echo -e "\033[1;32m           IR ISP MANAGEMENT           \033[0m"
-        echo -e "\033[1;36m fork of github.com/Kiya6955/IR-ISP-Blocker   \033[0m"
         echo -e "\033[1;34m--------------------------------------\033[0m"
         echo -e "\033[1;32m1. \033[0mHamrah Aval"
         echo -e "\033[1;32m2. \033[0mIrancell"
