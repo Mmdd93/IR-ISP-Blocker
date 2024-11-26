@@ -78,8 +78,8 @@ function blocking_menu {
     fi      
 
     echo -e "\n\033[1;34m---------------$isp-----------------\033[0m"
-    echo -e "\033[1;33m1. \033[0m Block $isp"
-    echo -e "\033[1;33m2. \033[0m Allow $isp"
+    echo -e "\033[1;33m1. \033[0m Block only $isp (allow all other IPs)"
+    echo -e "\033[1;33m2. \033[0m Allow only $isp (block all other IPs)"
     echo -e "\033[1;33m3. \033[0m Return"
     echo -e "\033[1;34m-----------------------------------\033[0m"
     read -p 'Enter your choice: ' choice
