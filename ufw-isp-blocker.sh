@@ -30,6 +30,8 @@ function isp_blocker {
         echo -e "\033[1;32m8. \033[0mMobinNet"
         echo -e "\033[1;32m9. \033[0mParsOnline"
         echo -e "\033[1;32m10. \033[0mReset and delete all rules"
+        echo -e "\033[1;32m12. \033[0mUFW management"
+        echo -e "\033[1;32m13. \033[0mArvan cdn"
         echo -e "\033[1;31m0. \033[0mReturn"
         echo -e "\033[1;34m--------------------------------------\033[0m"
         read -p "Enter your choice: " isp
@@ -46,7 +48,9 @@ function isp_blocker {
             9) isp="ParsOnline" blocking_menu ;;
             10) unblocker ;;
             11) isp="All-IRAN-IPs" blocking_menu ;;
-            12) ufw_menu ;;
+            12) curl -Ls https://raw.githubusercontent.com/Mmdd93/v2ray-assistance/main/ufw.sh -o ufw.sh
+		sudo bash ufw.sh  ;;
+            13) isp="arvan" blocking_menu ;;
             0) echo "Returning to the main menu..."; break ;;
             *) echo -e "\033[1;31mInvalid option. Please try again.\033[0m"; sleep 2 ;;
         esac
@@ -69,6 +73,7 @@ function blocking_menu {
         "MobinNet") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Kiya6955/IR-ISP-Blocker/main/mobinnet-ips.ipv4') ;;
         "ParsOnline") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Kiya6955/IR-ISP-Blocker/main/parsan-ips.ipv4') ;;
         "All-IRAN-IPs") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Mmdd93/IR-ISP-Blocker/main/all-iran-ips.ipv4') ;;
+        "arvan") IP_LIST=$(curl -s 'https://www.arvancloud.ir/fa/ips.txt') ;;
     esac
 
     if [ $? -ne 0 ]; then
