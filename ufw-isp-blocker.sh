@@ -73,7 +73,7 @@ function blocking_menu {
         "MobinNet") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Kiya6955/IR-ISP-Blocker/main/mobinnet-ips.ipv4') ;;
         "ParsOnline") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Kiya6955/IR-ISP-Blocker/main/parsan-ips.ipv4') ;;
         "All-IRAN-IPs") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Mmdd93/IR-ISP-Blocker/main/all-iran-ips.ipv4') ;;
-        "arvan") IP_LIST=$(curl -s 'https://www.arvancloud.ir/fa/ips.txt') ;;
+        "arvan") IP_LIST=$(curl -s 'https://raw.githubusercontent.com/Mmdd93/IR-ISP-Blocker/main/arvan.ipv4') ;;
     esac
 
     if [ $? -ne 0 ]; then
